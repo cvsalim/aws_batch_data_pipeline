@@ -1,7 +1,7 @@
 # Infrastructure as Code (IaC) with Terraform for Redshift, VPC, and S3
 
 provider "aws" {
-  region = "us-east-1" # Substitua pela região desejada
+  region = "us-east-1" # region
 }
 
 # VPC
