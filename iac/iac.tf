@@ -4,7 +4,7 @@ provider "aws" {
   region = "us-east-1" # Substitua pela região desejada
 }
 
-# Criar uma VPC
+# VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   tags = {
@@ -12,7 +12,7 @@ resource "aws_vpc" "main" {
   }
 }
 
-# Criar subnets
+# subnets
 resource "aws_subnet" "public_subnet" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.0.1.0/24"
@@ -23,7 +23,7 @@ resource "aws_subnet" "public_subnet" {
   }
 }
 
-# Criar um bucket S3
+# S3 Buckets
 resource "aws_s3_bucket" "redshift_bucket" {
   bucket = "redshift-cluster-bucket"
   acl    = "private"
@@ -34,7 +34,7 @@ resource "aws_s3_bucket" "redshift_bucket" {
   }
 }
 
-# Criar um Security Group
+# Security Group
 resource "aws_security_group" "redshift_sg" {
   name        = "redshift-sg"
   description = "Security group for Redshift"
@@ -59,13 +59,13 @@ resource "aws_security_group" "redshift_sg" {
   }
 }
 
-# Criar o cluster do Redshift
+# Redshift cluster
 resource "aws_redshift_cluster" "redshift_cluster" {
   cluster_identifier       = "redshift-cluster"
   node_type                = "dc2.large" 
-  number_of_nodes          = 1 # Cluster mínimo com um nó
+  number_of_nodes          = 1 #minimum
   master_username          = "admin"
-  master_password          = "Admin12345" # Substitua por uma senha segura
+  master_password          = "Admin12345" # your pass
   database_name            = "mydb"
   port                     = 5439
   cluster_type             = "single-node"
@@ -79,7 +79,7 @@ resource "aws_redshift_cluster" "redshift_cluster" {
   }
 }
 
-# Criar IAM Role para o Redshift acessar o S3
+# IAM Role Redshift to S3
 resource "aws_iam_role" "redshift_role" {
   name = "RedshiftRole"
 
